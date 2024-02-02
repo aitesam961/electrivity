@@ -8,23 +8,26 @@
 - [ ]  Power Cable
 - [ ]  micro SD Card
 - [ ]  micro HDMI adapter
-- [ ] Google Coral TPU
+- [ ]  Google Coral TPU
 
 
 ### Client Devices
 
-- [ ] ESP32-Devkits
-- [ ] Sensors modules
-  - [ ] Temperature
-  - [ ] Light (LDR/digital)
+- [ ] ESP32-Devkits     x5
+- [ ] Sensors modules   x5!
+  - [ ] Temperature 
+  - [ ] Light (LDR/digital) 
 - [ ] Relay Boards
 - [ ] Perfboards
 - [ ] Connecting Wires (M2M)
 - [ ] Micro-USB Cable
 - [ ] Misc.
-  - [ ] BJT transistor (BC647/similar)
+  - [ ] BJT transistor (BC547/similar-NPN)
   - [ ] 1uF Electrolytic Capacitors
-  - [ ]
+  - [ ] 
   - [ ]
   - [ ]
   - [ ] 
+
+
+  ### Off-the-shelf Clients

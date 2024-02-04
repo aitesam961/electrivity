@@ -3,3 +3,7 @@ A wireless IoT system with AI enhanced processing and automation.
 
 ### List of Hardware Components
 Check [/hardware/readme.md](hardware/readme.md)
+
+## STATUS
+In Progress.
+See #issues for more details.

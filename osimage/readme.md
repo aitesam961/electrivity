@@ -6,3 +6,15 @@
 - Debian version: 12 (bookworm)
 - Size: 1,108MB
 - [Release notes](https://downloads.raspberrypi.com/raspios_arm64/release_notes.txt?_gl=1*1tazfhq*_ga*NTI2NzYwNzY0LjE3MDcwNDUzMzc.*_ga_22FD70LWDS*MTcwNzA0NTMzOS4xLjEuMTcwNzA0NTQ0Ny4wLjAuMA..)
+
+
+$ sudo raspi-config params
+
+- SSH Enabled
+- Default boot to CLI (performance constraints)
+- username: rpi
+- password: rpirpi
+- Wireless Interface
+ (aitesam's home network)
+ 
+ 

@@ -1,10 +1,10 @@
-#include <BluetoothSerial.h>
+ #include <BluetoothSerial.h>
 
 BluetoothSerial SerialBT;
 
 void setup() {
   Serial.begin(115200);
-  SerialBT.begin("ESP32"); // Bluetooth device name
+  SerialBT.begin("ESP32-A1"); // Bluetooth device name
 }
 
 void loop() {

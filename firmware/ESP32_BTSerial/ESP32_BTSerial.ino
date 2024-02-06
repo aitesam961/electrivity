@@ -16,5 +16,8 @@ void loop() {
   SerialBT.println("Hello Python!"); // Send data
   delay(300);
 
+
+
+
   
 }

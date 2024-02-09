@@ -13,7 +13,7 @@ void loop() {
     Serial.println(SerialBT.readString());
   }
 
-  SerialBT.println("Hello Python!"); // Send data
+  SerialBT.println(SerialBT.readString()); // Send data
   delay(300);
 
 

@@ -1,7 +1,7 @@
-import bluetooth 
+import bluetooth
 import time
 
-target_address = "A8:03:2A:EB:03:16"
+target_address = "08:D1:F9:E7:DE:12"  # Replace with the actual ESP32 MAC address
 port = 1
 
 class BluetoothCommunication:
@@ -23,17 +23,26 @@ if __name__ == "__main__":
 
     try:
         while True:
-            # Send data
-            data_to_send = b"Hello ESP32!"
-            bt_communication.send_data(data_to_send)
+            # Wait for 1 second
+            time.sleep(1)
 
-            # Receive data
+            # Send initial string data
+            bt_communication.send_data("ESP32-DEMO-BOARD-1".encode())
+
+            # Receive response from ESP32
+            response_data = bt_communication.receive_data()
+            print("Received:", response_data.decode())
+
+            if response_data.decode() == "ACTIVE":
+                # Send command for temperature data
+                bt_communication.send_data("SEND_TEMP".encode())
+
+            # Receive data from ESP32
             received_data = bt_communication.receive_data()
             print("Received:", received_data.decode())
 
-            time.sleep(1)
+            # Optional: Add user response functionality here
 
     except KeyboardInterrupt:
         bt_communication.close_connection()
         print("Connection closed.")
-

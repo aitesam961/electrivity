@@ -1,53 +1,57 @@
-import bluetooth
+import bluepy.btle as btle
 import time
 
-target_address = "08:D1:F9:E7:DE:12"  # Replace with the actual ESP32 MAC address
-port = 1
+# ESP32 BLE device MAC address
+esp32_mac_address = "08:D1:F9:E7:DE:12"
 
-class BluetoothCommunication:
-    def __init__(self):
-        self.sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-        self.sock.connect((target_address, port))
+class NotificationHandler(btle.DefaultDelegate):
+    def handleNotification(self, cHandle, data):
+        if cHandle == temperature_handle:
+            temperature = int.from_bytes(data, byteorder='little')
+            print("Temperature received:", temperature, "°C")
+        elif cHandle == control_handle:
+            control_signal = int.from_bytes(data, byteorder='little')
+            if control_signal == 1:
+                print("Relay turned ON")
+            elif control_signal == 0:
+                print("Relay turned OFF")
 
-    def send_data(self, data):
-        self.sock.send(data)
+# UUIDs for temperature and control characteristics
+temperature_uuid = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
+control_uuid = "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
 
-    def receive_data(self):
-        return self.sock.recv(1024)
+# Connect to the ESP32 BLE peripheral
+esp32_device = btle.Peripheral(esp32_mac_address)
+esp32_device.setDelegate(NotificationHandler())
 
-    def close_connection(self):
-        self.sock.close()
+# Find characteristics handles
+temperature_handle = esp32_device.getCharacteristics(uuid=temperature_uuid)[0].getHandle()
+control_handle = esp32_device.getCharacteristics(uuid=control_uuid)[0].getHandle()
 
-if __name__ == "__main__":
-    bt_communication = BluetoothCommunication()
+try:
+    while True:
+        if esp32_device.waitForNotifications(1.0):
+            continue
+        print("Waiting for notifications...")
+        time.sleep(1)
 
-    try:
-        while True:
-            # Wait for 1 second
-            time.sleep(1)
+        # Read temperature data
+        temperature_data = esp32_device.readCharacteristic(temperature_handle)
+        temperature = int.from_bytes(temperature_data, byteorder='little')
+        print("Temperature:", temperature, "°C")
 
-            # Send initial string data
-            bt_communication.send_data("ESP32-DEMO-BOARD-1".encode())
+        # Send control signal to turn relay ON (1)
+        esp32_device.writeCharacteristic(control_handle, b"\x01", withResponse=True)
+        print("Relay turned ON")
 
-            # Receive response from ESP32
-            response_data = bt_communication.receive_data()
-            print("Received:", response_data.decode())
-            if response_data == 111:
-                # Send command for temperature data
-                print("Requesting Temp:")
-                bt_communication.send_data("SEND_TEMP".encode())
-            else:
-                print("Active mismacthed",response_data)
-                print("Still Requesting Temp:")
-                bt_communication.send_data("SEND_TEMP".encode())
-            
-                
-            # Receive data from ESP32
-            received_data = bt_communication.receive_data()
-            print("Received:", received_data.decode())
+        time.sleep(1)  # Wait for 5 seconds
 
-            # Optional: Add user response functionality here
+        # Send control signal to turn relay OFF (0)
+        esp32_device.writeCharacteristic(control_handle, b"\x00", withResponse=True)
+        print("Relay turned OFF")
 
-    except KeyboardInterrupt:
-        bt_communication.close_connection()
-        print("Connection closed.")
+        time.sleep(1)  # Wait for 5 seconds
+
+except KeyboardInterrupt:
+    print("Keyboard interrupt detected. Disconnecting...")
+    esp32_device.disconnect()

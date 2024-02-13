@@ -1,47 +1,78 @@
 #include <Arduino.h>
-#include <BluetoothSerial.h>
+#include <BLEDevice.h>
+#include <BLEServer.h>
+#include <BLEUtils.h>
+#include <BLE2902.h>
 
-u_int8_t device_name = 255 ;
-u_int8_t active   = 111;
-u_int8_t sendtemp = 001;
-u_int8_t sendhumi = 002;
-u_int8_t lit_on   = 101;
-u_int8_t lit_off  = 100;
-u_int8_t meActive = 0;
+#define SERVICE_UUID        "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
+#define TEMPERATURE_UUID    "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
+#define CONTROL_UUID        "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
+#define BLE_NAME            "ESP32-Node-1"
 
-int temperature, humidity;
-int relaycontrol;
+BLEServer *pServer = NULL;
+BLECharacteristic *pCharacteristicTemperature = NULL;
+BLECharacteristic *pCharacteristicControl = NULL;
 
-uint8_t received,send;
+bool deviceConnected = false;
+bool controlValueChanged = false;
+byte lastControlValue = 0;
 
-BluetoothSerial SerialBT;
+int generateTemperature() {
+  return random(20, 41); // Random number between 20 and 40
+}
+
+class MyServerCallbacks : public BLEServerCallbacks {
+  void onConnect(BLEServer* pServer) {
+    deviceConnected = true;
+  };
+
+  void onDisconnect(BLEServer* pServer) {
+    deviceConnected = false;
+  }
+};
+
+class MyCharacteristicCallbacks : public BLECharacteristicCallbacks {
+  void onWrite(BLECharacteristic *pCharacteristic) {
+    controlValueChanged = true;
+    lastControlValue = *pCharacteristic->getValue().c_str();
+  }
+};
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("System Booting...");
-  SerialBT.begin(device_name); // Bluetooth device name
-  Serial.println(device_name + " is live");
+  randomSeed(analogRead(0));
 
+  BLEDevice::init(BLE_NAME);
+  pServer = BLEDevice::createServer();
+  pServer->setCallbacks(new MyServerCallbacks());
+
+  BLEService *pService = pServer->createService(SERVICE_UUID);
+
+  pCharacteristicTemperature = pService->createCharacteristic(TEMPERATURE_UUID,BLECharacteristic::PROPERTY_NOTIFY);
+  pCharacteristicTemperature->addDescriptor(new BLE2902());
+
+  pCharacteristicControl = pService->createCharacteristic(CONTROL_UUID,BLECharacteristic::PROPERTY_WRITE);
+  pCharacteristicControl->setCallbacks(new MyCharacteristicCallbacks());
+
+  pService->start();
+
+  pServer->getAdvertising()->start();
+  Serial.println("Waiting for a connection...");
 }
 
 void loop() {
-  temperature = random(20,30);
-  humidity    = random(40,60);
- 
-  
-  if (SerialBT.available()) {
-    received   = SerialBT.read();
+  if (deviceConnected) {
+    int temperature = generateTemperature();
+    pCharacteristicTemperature->setValue((uint8_t*)&temperature, sizeof(temperature));
+    pCharacteristicTemperature->notify();
+    Serial.println("Temperature sent: " + String(temperature) + " °C");
 
-    if(received == device_name){
-      SerialBT.write(active);
-      meActive    = 111;
+    if (controlValueChanged) {
+      Serial.println("Control signal received: " + String(lastControlValue));
+      // Handle control signal here
+      controlValueChanged = false;
     }
 
-
+    delay(1000);
   }
-  else{
-     Serial.println("IDLE: Waiting for data");
-  }
-  received = 0;
-  delay(500);
 }

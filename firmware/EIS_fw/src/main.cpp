@@ -1,17 +1,18 @@
 #include <Arduino.h>
 #include <BluetoothSerial.h>
 
-String device_name = "ESP32-DEMO-BOARD-1" ;
+u_int8_t device_name = 255 ;
 u_int8_t active   = 111;
 u_int8_t sendtemp = 001;
 u_int8_t sendhumi = 002;
 u_int8_t lit_on   = 101;
 u_int8_t lit_off  = 100;
+u_int8_t meActive = 0;
 
 int temperature, humidity;
 int relaycontrol;
 
-String receive,send,nametag;
+uint8_t received,send;
 
 BluetoothSerial SerialBT;
 
@@ -29,34 +30,18 @@ void loop() {
  
   
   if (SerialBT.available()) {
-    receive = SerialBT.readString();
-    Serial.println(receive);
-    if(receive == device_name){
-      SerialBT.println(active);
-      Serial.println("ESP32: Name Request Received");
+    received   = SerialBT.read();
+
+    if(received == device_name){
+      SerialBT.write(active);
+      meActive    = 111;
     }
-    receive = SerialBT.readString();
-    if(receive == sendtemp){
-      SerialBT.println(temperature);
-      Serial.println("Sending Temperature" + temperature);
-    }
-    else if (receive == sendhumi){
-      SerialBT.println(humidity);
-      Serial.println("Sending Humidity" + humidity);
-    }
-    receive = SerialBT.readString();
-    if(receive == lit_on){
-      relaycontrol = 1;
-      Serial.println("Light is ON");
-    }
-    else if (receive == lit_off){
-      relaycontrol = 0;
-      Serial.println("Light is OFF");
-    }
+
+
   }
   else{
      Serial.println("IDLE: Waiting for data");
   }
-  receive = "";
+  received = 0;
   delay(500);
 }

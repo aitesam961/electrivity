@@ -32,11 +32,16 @@ if __name__ == "__main__":
             # Receive response from ESP32
             response_data = bt_communication.receive_data()
             print("Received:", response_data.decode())
-
-            if response_data.decode() == "ACTIVE":
+            if response_data == 111:
                 # Send command for temperature data
+                print("Requesting Temp:")
                 bt_communication.send_data("SEND_TEMP".encode())
-
+            else:
+                print("Active mismacthed",response_data)
+                print("Still Requesting Temp:")
+                bt_communication.send_data("SEND_TEMP".encode())
+            
+                
             # Receive data from ESP32
             received_data = bt_communication.receive_data()
             print("Received:", received_data.decode())

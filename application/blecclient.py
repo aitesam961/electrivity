@@ -3,7 +3,7 @@ import time
 
 # ESP32 BLE device MAC addresses
 esp32_sensor_mac_address    = "08:D1:F9:E7:DE:12"  # MAC address for the sensor ESP32
-esp32_control_mac_address   = "08:D1:F9:E7:DE:34"  # MAC address for the control ESP32
+esp32_control_mac_address   = "08:D1:F9:E8:7E:7C"  # MAC address for the control ESP32
 
 class SensorNotificationHandler(btle.DefaultDelegate):
     def handleNotification(self, cHandle, data):

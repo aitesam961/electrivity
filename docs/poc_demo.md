@@ -13,6 +13,8 @@ Temp, Humi and Light intensity, each has a unique GATT chracteristic.The system 
 
 Primarily acts as a relay controlling device. The GPIOs connect to a relay board. The resistors are for current limiting to keep ESP32 in safe operational range.The Relay board connects to a household Wall Switch board that has AC Bulbs for indication.
 
+![Im1](docs/im1.jpeg)
+
 Moreover, the pushbuttons emulate user actions against switches. (Demo Alternative until current sensors arrive).
 
 The system is powered by power adapter directly from the socket.
@@ -33,6 +35,13 @@ Not neccessary but helps access the pi thorugh SSH for convenient configuration.
 ## Operation
 This demonstration includes a sensor server and a control server. The wireless communication is implemented using BLE GATT standard communication protocol.
 
+At the boot-up, the servers wait for the central client to connect. At this time, a blue LED on ESP32 is turned ON. The Raspberry pi client connects to servers using their MAC addresses that are pre-defined in the client application.
+
+After successful pairing, Sensor Service reads the sensor data and transmits a GATT Chracterisitic for each field. Raspberry Pi reads the chracteristics and asserts the control signals accordingly.
+
+### Operational Range
+
+Using the BLE GATT channel with ESP32 connected to my Phone, I experienced a very good range of ~11 meters (apologies: 15 in the video was an approximate measurement). In case of ESP32 connected to raspberry pi zero w over BLE 4.2 GATT, I experienced the range dropping at ~4-5 meters.(BLE + WiFi active). So clearly, RPi is the bottleneck.
 
 ### Summary
 

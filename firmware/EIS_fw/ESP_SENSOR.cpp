@@ -7,10 +7,10 @@
 #include <DHT.h>
 
 // BLE GATT UUIDs defination. (Custom UUIDs)
-#define SERVICE_UUID        "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
-#define TEMPERATURE_UUID    "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
-#define HUMIDITY_UUID       "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
-#define LIGHT_UUID          "6e400004-b5a3-f393-e0a9-e50e24dcca9e"
+#define SERVICE_UUID        "6e410000-b5a3-f393-e0a9-e50e24dcca9e"
+#define TEMPERATURE_UUID    "6e410010-b5a3-f393-e0a9-e50e24dcca9e"
+#define HUMIDITY_UUID       "6e410011-b5a3-f393-e0a9-e50e24dcca9e"
+#define LIGHT_UUID          "6e410012-b5a3-f393-e0a9-e50e24dcca9e"
 #define BLE_NAME            "Sensor Device"
 
 #define DHTTYPE DHT11 
@@ -19,7 +19,7 @@
 #define DHT11_PIN 4
 #define LDR_PIN   32
 
-
+#define LED_PIN   2
 
 BLEServer *pServer = NULL;
 BLECharacteristic *pCharacteristicTemperature = NULL;
@@ -38,6 +38,8 @@ class MyServerCallbacks : public BLEServerCallbacks {
 
   void onDisconnect(BLEServer* pServer) {
     deviceConnected = false;
+    pServer->getAdvertising()->start();
+    Serial.println("Waiting for client to connect.......");
   }
 };
 
@@ -79,14 +81,17 @@ void setup() {
 
   pServer->getAdvertising()->start();
   Serial.println("Waiting for client to connect.......");
+  
+  pinMode(LED_PIN,OUTPUT);
 }
 
 void loop() {
   
   if (deviceConnected) {
+    digitalWrite(LED_PIN,LOW);
     // Read only when client is connected
-    float temperature = dht.readTemperature();
-    float humidity    = dht.readHumidity();
+    u_int8_t temperature = dht.readTemperature();
+    u_int8_t humidity    = dht.readHumidity();
     bool lightstatus = (analogRead(LDR_PIN) >= 2950) ? false : true;
 
     pCharacteristicTemperature->setValue((uint8_t*)&temperature, sizeof(temperature));
@@ -105,7 +110,8 @@ void loop() {
   }
   else{
     Serial.println("Client not connected.....");
+    digitalWrite(LED_PIN,HIGH);
   }
 
-  delay(2000);
+  delay(500);
 }

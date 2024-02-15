@@ -31,7 +31,7 @@ The UUIDs and MAC addresses of server devices are already stored in the program.
 Not neccessary but helps access the pi thorugh SSH for convenient configuration. Eventually, would allow for WAN connection to mobile app.
 
 ## Operation
-
+This demonstration includes a sensor server and a control server. The wireless communication is implemented using BLE GATT standard communication protocol.
 
 
 ### Summary

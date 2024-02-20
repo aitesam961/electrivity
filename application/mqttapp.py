@@ -1,3 +1,12 @@
+
+# Project: PRISM
+# An Egde IoT System for home automation
+# 
+# Author: aitesam961
+# 
+# This is the main source code for RPI local client
+
+
 import paho.mqtt.client as mqtt
 
 # MQTT Broker
@@ -21,7 +30,7 @@ def on_message(client, userdata, msg):
             client.publish(ledTopic, "off")
             print("LED turned OFF")
 
-client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, mqttClientID)
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, mqttClientID)    # using V1 because V2 breaks the plugin
 client.on_connect = on_connect
 client.on_message = on_message
 

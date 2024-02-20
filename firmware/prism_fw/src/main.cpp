@@ -63,7 +63,7 @@ void reconnect() {
 
 void setup() {
   Serial.begin(115200);
-  pinMode(switchPin, INPUT);
+  pinMode(switchPin, INPUT_PULLUP);
   pinMode(ledPin, OUTPUT);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
@@ -89,4 +89,9 @@ void loop() {
     client.publish(switchTopic, "high");
     Serial.println("Switch HIGH");
   }
+  else{
+    client.publish(switchTopic, "low");
+    Serial.println("Switch LOW");
+  }
+  delay(300);
 }

@@ -12,9 +12,9 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 
-const char* ssid = "M.INAM UL HAQ";
-const char* password = "Easy@13290.Wifi";
-const char* mqttServer = "192.168.8.103";
+const char* ssid = "SSID";
+const char* password = "PWD";
+const char* mqttServer = "RPI_IP";
 const int mqttPort = 1883;
 const char* mqttClientID = "ESP32Client1";
 const char* switchTopic = "esp32/switch";

@@ -1,34 +1,30 @@
 import paho.mqtt.client as mqtt
 
-mqttBroker = "localhost"  # Assuming broker on same Pi
-switchTopic = "esp32/switch"
+# MQTT Broker
+mqttBroker = "192.168.8.103"
+mqttPort = 1883
+mqttClientID = "RPiClient1"
 ledTopic = "esp32/led"
+switchTopic = "esp32/switch"
 
 def on_connect(client, userdata, flags, rc):
-    if rc == 0:
-        print("Connected to MQTT Broker!")
-        client.subscribe(switchTopic)
-    else:
-        print("Failed to connect, return code %d\n", rc)
+    print("Connected with result code "+str(rc))
+    client.subscribe(switchTopic)
 
-def on_message(client, userdata, message):
-    message = message.payload.decode()
-    print("Received message:", message)
-    if message == "high":
-        print("Switch is HIGH")
-    else:
-        print("Switch is LOW")
+def on_message(client, userdata, msg):
+    print(msg.topic+" "+str(msg.payload))
+    if msg.topic == switchTopic:
+        if msg.payload == b'high':
+            client.publish(ledTopic, "on")
+            print("LED turned ON")
+        else:
+            client.publish(ledTopic, "off")
+            print("LED turned OFF")
 
-# Remove CallbackAPIVersion for older versions
-client = mqtt.Client()
-
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, mqttClientID)
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect(mqttBroker)
-client.loop_start()
+client.connect(mqttBroker, mqttPort, 60)
 
-while True:
-    userInput = input("Enter 'on' to turn LED on, 'off' to turn it off: ")
-    if userInput == "on" or userInput == "off":
-        client.publish(ledTopic, userInput)
+client.loop_forever()

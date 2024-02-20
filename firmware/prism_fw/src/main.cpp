@@ -14,9 +14,9 @@
 
 const char* ssid = "M.INAM UL HAQ";
 const char* password = "Easy@13290.Wifi";
-const char* mqttServer = "192.168.8.102";
+const char* mqttServer = "192.168.8.103";
 const int mqttPort = 1883;
-const char* mqttClientID = "ESP32Client";
+const char* mqttClientID = "ESP32Client1";
 const char* switchTopic = "esp32/switch";
 const char* ledTopic = "esp32/led";
 

@@ -9,3 +9,6 @@ A wireless IoT system with AI enhanced processing and automation.
 ## STATUS
 In Progress.
 See #issues for more details.
+
+
+### Directory Tree

@@ -43,5 +43,5 @@ prism/board4/touch4
 
 ```
 
-There are 4x switches/touches per board. As the first step, implement support for at least 4 boards.
+**There are 4x switches/touches per board. As the first step, implement support for at least 4 boards.**
 

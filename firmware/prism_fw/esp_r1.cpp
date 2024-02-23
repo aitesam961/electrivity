@@ -6,7 +6,7 @@
 *  Author: aitesam961
 *  
 *  This is the main source file for ESP32 firmware written in arduino framework
-*  -- Paste the code here for compilation
+*  
 *
 */
 #include <WiFi.h>

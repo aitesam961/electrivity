@@ -1,13 +1,13 @@
 /*
-
-  Project: PRISM
-  An Egde IoT System for home automation
-  
-  Author: aitesam961
-  
-  This is the main source file for ESP32 firmware written in arduino framework
-  -- Paste the code here for compilation
-
+*
+*  Project: PRISM
+*  An Egde IoT System for home automation
+*  
+*  Author: aitesam961
+*  
+*  This is the main source file for ESP32 firmware written in arduino framework
+*  -- Paste the code here for compilation
+*
 */
 #include <WiFi.h>
 #include <PubSubClient.h>
@@ -90,21 +90,21 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Connecting to MQTT Broker...");
-    digitalWrite(led_pin, LOW);
     if (client.connect(mqttClientID)) {
-      Serial.println("connected");
-      client.subscribe(top_swh_1);
-      client.subscribe(top_swh_2);
-      client.subscribe(top_swh_3);
-      client.subscribe(top_swh_4);
+        digitalWrite(led_pin, LOW);
+        Serial.println("connected");
+        client.subscribe(top_swh_1);
+        client.subscribe(top_swh_2);
+        client.subscribe(top_swh_3);
+        client.subscribe(top_swh_4);
     } else {
-      Serial.print("failed, rc=");
-      Serial.print(client.state());
-      Serial.println(" trying again in 5 seconds");
-      digitalWrite(led_pin, HIGH);
-      delay(2500);
-      digitalWrite(led_pin, LOW);
-      delay(2500);
+        Serial.print("failed, rc=");
+        Serial.print(client.state());
+        Serial.println(" trying again in 5 seconds");
+        digitalWrite(led_pin, HIGH);
+        delay(2500);
+        digitalWrite(led_pin, LOW);
+        delay(2500);
     }
   }
 }
@@ -141,6 +141,7 @@ void setup() {
 
 void loop() {
   if (!client.connected()) {
+    digitalWrite(led_pin, HIGH);
     reconnect();
   }
   client.loop();

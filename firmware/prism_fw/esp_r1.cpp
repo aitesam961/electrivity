@@ -49,7 +49,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   for (int i = 0; i < length; i++) {
     message += (char)payload[i];
   }
-  if (String(topic) == top_swh_1) {
+  if (String(topic) == top_swh_1) {`
     if (message == "on") {
       digitalWrite(switch1_pin, LOW);
       Serial.println("Relay-1 turned ON");

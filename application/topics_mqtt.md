@@ -41,6 +41,11 @@ prism/board4/touch2
 prism/board4/touch3
 prism/board4/touch4
 
+
+prism/sboard1/sensor1
+prism/sboard1/sensor2
+prism/sboard1/sensor3
+
 ```
 
 **There are 4x switches/touches per board. As the first step, implement support for at least 4 boards.**

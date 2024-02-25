@@ -1,4 +1,4 @@
-# PRISM: An EDGE IOT SYSTEM
+# ELECTRIVITY: An EDGE IOT SYSTEM
 A wireless IoT system with AI enhanced processing and automation.
 
 ### List of Hardware Components

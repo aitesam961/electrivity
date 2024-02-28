@@ -10,6 +10,32 @@ A wireless IoT system with AI enhanced processing and automation.
 In Progress.
 See #issues for more details.
 
+## File Naming Conventions
+
+The project files follows a uniform file naming convention across the repository.
+
+### Design Files: 
+Design files should be placed under respective folders and DE project sources should be named as:
+```
+EVTY_FW_PIO_V1
+EVTY: Electrivity
+FW: Firmware 
+PIO: Development Environment
+V1: Version
+```
+
+### Documents:
+Documents must follow the naming order as the example below
+
+```
+EVTY_pres_sysd_v1.xls
+EVTY: Electrivity
+pres: presentation
+sysd: Descriptor
+v1: version
+.xls: extension
+```
+
 
 ### Directory Tree
 
@@ -17,6 +43,7 @@ See #issues for more details.
 .
 ├── application
 │   ├── mqttapp.py
+│   ├── mqtt_switch_control.sh
 │   └── topics_mqtt.md
 ├── archive
 │   ├── _apppy
@@ -52,6 +79,7 @@ See #issues for more details.
 │   ├── image_2024-02-22_001135263.png
 │   ├── poc_demo.md
 │   ├── poc_demo.pdf
+│   ├── prism_cp0.1_vx.pdf
 │   ├── prism-xp1_swd.drawio
 │   ├── prism-xp1_swd.png
 │   ├── prism-xp1_sysd.drawio
@@ -59,7 +87,9 @@ See #issues for more details.
 │   ├── readme.md
 │   └── Report.pdf
 ├── firmware
-│   ├── prism_fw
+│   ├── electrivity_fw
+│   │   ├── esp32_s1.cpp
+│   │   ├── esp_r1.cpp
 │   │   ├── include
 │   │   │   └── README
 │   │   ├── lib
@@ -79,10 +109,4 @@ See #issues for more details.
 └── reference
     └── mqtt-v5.0-os.pdf
 
-21 directories, 43 files
-
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 795747a8ef6654e49d477bc16288b8adf364d5aa

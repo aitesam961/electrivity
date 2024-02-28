@@ -26,6 +26,8 @@ PIO: Development Environment
 V1: Version
 ```
 
+The provided FNC follows guidelines provided by [MIT Data Management:
+File Organization documents](https://ocw.mit.edu/courses/res-str-002-data-management-spring-2016/497580bd31c004cc758a2afb0a115aa4_MITRES_STR_002S16_File.pdf)
 ### Documents:
 Documents must follow the naming order as the example below
 

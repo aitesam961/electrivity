@@ -10,7 +10,7 @@ A wireless IoT system with AI enhanced processing and automation.
 In Progress.
 
 - Hardware and Firmware : @aitesam961
-- Mobile application and Linux Program: Hassan & Fawad
+- Mobile application and Linux Program: @Hassan & @Fawad
 
 ## File Naming Conventions
 

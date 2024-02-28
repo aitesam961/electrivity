@@ -146,6 +146,10 @@ void setup() {
 void loop() {
   if (!client.connected()) {
     digitalWrite(led_pin, HIGH);
+    digitalWrite(switch1_pin, HIGH);
+    digitalWrite(switch2_pin, HIGH);
+    digitalWrite(switch3_pin, HIGH);
+    digitalWrite(switch4_pin, HIGH);
     reconnect();
   }
   client.loop();

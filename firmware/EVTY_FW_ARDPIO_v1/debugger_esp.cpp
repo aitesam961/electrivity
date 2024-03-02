@@ -17,7 +17,7 @@ const char* ssid            = "LIAMAVENTA";
 const char* password        = "78900789";
 const char* mqttServer      = "192.168.1.94";
 const int mqttPort          = 1883;
-const char* mqttClientID = "ESP32_ROOM_1";
+const char* mqttClientID = "ESP32_ALL";
 
 const char* top_swh_1 = "prism/board1/switch1";
 const char* top_swh_2 = "prism/board1/switch2";
@@ -78,10 +78,10 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   if (String(topic) == top_swh_4) {
     if (message == "on") {
-      digitalWrite(switch4_pin, LOW);
+      digitalWrite(switch3_pin, LOW);
       Serial.println("Relay-4 turned ON");
     } else if (message == "off") {
-      digitalWrite(switch4_pin, HIGH);
+      digitalWrite(switch3_pin, HIGH);
       Serial.println("Relay-4 turned OFF");
     }
   }

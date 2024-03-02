@@ -13,9 +13,9 @@
 #include <PubSubClient.h>
 
 
-const char* ssid            = "Germanium";
-const char* password        = "Germanium";
-const char* mqttServer      = "192.168.0.101";
+const char* ssid            = "LIAMAVENTA";
+const char* password        = "78900789";
+const char* mqttServer      = "192.168.1.94";
 const int mqttPort          = 1883;
 const char* mqttClientID = "ESP32_ROOM_1";
 
@@ -78,10 +78,10 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   if (String(topic) == top_swh_4) {
     if (message == "on") {
-      digitalWrite(switch3_pin, LOW);
+      digitalWrite(switch4_pin, LOW);
       Serial.println("Relay-4 turned ON");
     } else if (message == "off") {
-      digitalWrite(switch3_pin, HIGH);
+      digitalWrite(switch4_pin, HIGH);
       Serial.println("Relay-4 turned OFF");
     }
   }

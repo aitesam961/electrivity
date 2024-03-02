@@ -15,9 +15,9 @@
 #include <DHT.h>
 
 
-const char* ssid            = "SSID";
-const char* password        = "PWD";
-const char* mqttServer      = "RPI_IP";
+const char* ssid            = "LIAMAVENTA";
+const char* password        = "78900789";
+const char* mqttServer      = "192.168.1.94";
 const int mqttPort          = 1883;
 const char* mqttClientID    = "ESP32_SENSOR_ ROOM_1";
 

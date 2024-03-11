@@ -9,13 +9,14 @@
 *  
 *
 */
+#include<Arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
 
 
-const char* ssid            = "LIAMAVENTA";
-const char* password        = "78900789";
-const char* mqttServer      = "192.168.1.94";
+const char* ssid            = "secureLAN";
+const char* password        = "secureLAN";
+const char* mqttServer      = "10.42.0.1";
 const int mqttPort          = 1883;
 const char* mqttClientID = "ESP32_ROOM_1";
 
@@ -34,10 +35,10 @@ const int switch2_pin     = 4;
 const int switch3_pin     = 16;
 const int switch4_pin     = 17;
  
-const int touch1_pin      = 13;
-const int touch2_pin      = 33;
-const int touch3_pin      = 14;
-const int touch4_pin      = 27;
+const int touch1_pin      = 18;
+const int touch2_pin      = 19;
+const int touch3_pin      = 21;
+const int touch4_pin      = 22;
  
 const int led_pin         = 2 ;  
 
@@ -116,10 +117,10 @@ void setup() {
   Serial.begin(115200);
   pinMode(led_pin, OUTPUT);
   digitalWrite(led_pin, HIGH);
-  pinMode(touch1_pin, INPUT_PULLUP);
-  pinMode(touch2_pin, INPUT_PULLUP);
-  pinMode(touch3_pin, INPUT_PULLUP);
-  pinMode(touch4_pin, INPUT_PULLUP);
+  pinMode(touch1_pin, INPUT);
+  pinMode(touch2_pin, INPUT);
+  pinMode(touch3_pin, INPUT);
+  pinMode(touch4_pin, INPUT);
 
   pinMode(switch1_pin, OUTPUT);
   pinMode(switch2_pin, OUTPUT);
@@ -154,41 +155,26 @@ void loop() {
   }
   client.loop();
 
-  int switchState1 = digitalRead(touch1_pin);
-  if (switchState1 == HIGH) {
+  uint8_t switchState1 = digitalRead(touch1_pin);
+  if (switchState1 == 1) {
     client.publish(top_tch_1, "high");
     Serial.println("Touch-1 HIGH");
   }
-  else{
-    client.publish(top_tch_1, "low");
-    Serial.println("Touch-1 LOW");
-  }
-  int switchState2 = digitalRead(touch2_pin);
-  if (switchState2 == HIGH) {
+  uint8_t switchState2 = digitalRead(touch2_pin);
+  if (switchState2 == 1) {
     client.publish(top_tch_2, "high");
     Serial.println("Touch-2 HIGH");
-  }
-  else{
-    client.publish(top_tch_2, "low");
-    Serial.println("Touch-2 LOW");
-  }
-  int switchState3 = digitalRead(touch3_pin);
-  if (switchState3 == HIGH) {
+  }  
+  uint8_t switchState3 = digitalRead(touch3_pin);
+  if (switchState3 == 1) {
     client.publish(top_tch_3, "high");
     Serial.println("Touch-3 HIGH");
   }
-  else{
-    client.publish(top_tch_3, "low");
-    Serial.println("Touch-3 LOW");
-  }
-  int switchState4 = digitalRead(touch4_pin);
-  if (switchState4 == HIGH) {
+  uint8_t switchState4 = digitalRead(touch4_pin);
+  if (switchState4 == 1) {
     client.publish(top_tch_4, "high");
     Serial.println("Touch-4 HIGH");
   }
-  else{
-    client.publish(top_tch_4, "low");
-    Serial.println("Touch-4 LOW");
-  }
   delay(100);
+  Serial.println("Tick..........!");
 }

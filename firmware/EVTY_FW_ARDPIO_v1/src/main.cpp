@@ -168,10 +168,10 @@ void loop() {
       Serial.println("Touch-1 HIGH");
       ttemp1 = 1;
     }
-    else{
-      ttemp1 = 0;
-      Serial.println("Resetting_TTEMP");
-    }
+  }
+  else{
+    ttemp1 = 0;
+    Serial.println("Resetting_TTEMP");
   }
 
   uint8_t switchState2 = digitalRead(touch2_pin);
@@ -181,10 +181,10 @@ void loop() {
       Serial.println("Touch-2 HIGH");
       ttemp2 = 1;
     }
-    else{
-      ttemp2 = 0;
-      Serial.println("Resetting_TTEMP");
-    }
+  }
+  else{
+    ttemp2 = 0;
+    Serial.println("Resetting_TTEMP");
   }
 
   uint8_t switchState3 = digitalRead(touch3_pin);
@@ -194,10 +194,10 @@ void loop() {
       Serial.println("Touch-3 HIGH");
       ttemp3 = 1;
     }
-    else{
-      ttemp3 = 0;
-      Serial.println("Resetting_TTEMP");
-    }
+  }
+  else{
+    ttemp3 = 0;
+    Serial.println("Resetting_TTEMP");
   }
 
   uint8_t switchState4 = digitalRead(touch4_pin);
@@ -207,10 +207,10 @@ void loop() {
       Serial.println("Touch-4 HIGH");
       ttemp4 = 1;
     }
-    else{
-      ttemp4 = 0;
-      Serial.println("Resetting_TTEMP");
-    }
+  }
+  else{
+    ttemp4 = 0;
+    Serial.println("Resetting_TTEMP");
   }
   delay(300);
   Serial.println("Tick..........!");

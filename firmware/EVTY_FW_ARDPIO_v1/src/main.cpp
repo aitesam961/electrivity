@@ -35,12 +35,18 @@ const int switch2_pin     = 4;
 const int switch3_pin     = 16;
 const int switch4_pin     = 17;
  
-const int touch1_pin      = 18;
+const int touch1_pin      = 23;
 const int touch2_pin      = 19;
 const int touch3_pin      = 21;
 const int touch4_pin      = 22;
  
 const int led_pin         = 2 ;  
+
+
+uint8_t ttemp1 = 0;
+uint8_t ttemp2 = 0;
+uint8_t ttemp3 = 0;
+uint8_t ttemp4 = 0;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -154,27 +160,58 @@ void loop() {
     reconnect();
   }
   client.loop();
-
+  
   uint8_t switchState1 = digitalRead(touch1_pin);
   if (switchState1 == 1) {
-    client.publish(top_tch_1, "high");
-    Serial.println("Touch-1 HIGH");
+    if(ttemp1 == 0){
+      client.publish(top_tch_1, "high");
+      Serial.println("Touch-1 HIGH");
+      ttemp1 = 1;
+    }
+    else{
+      ttemp1 = 0;
+      Serial.println("Resetting_TTEMP");
+    }
   }
+
   uint8_t switchState2 = digitalRead(touch2_pin);
   if (switchState2 == 1) {
-    client.publish(top_tch_2, "high");
-    Serial.println("Touch-2 HIGH");
-  }  
+    if(ttemp2 == 0){
+      client.publish(top_tch_2, "high");
+      Serial.println("Touch-2 HIGH");
+      ttemp2 = 1;
+    }
+    else{
+      ttemp2 = 0;
+      Serial.println("Resetting_TTEMP");
+    }
+  }
+
   uint8_t switchState3 = digitalRead(touch3_pin);
   if (switchState3 == 1) {
-    client.publish(top_tch_3, "high");
-    Serial.println("Touch-3 HIGH");
+    if(ttemp3 == 0){
+      client.publish(top_tch_3, "high");
+      Serial.println("Touch-3 HIGH");
+      ttemp3 = 1;
+    }
+    else{
+      ttemp3 = 0;
+      Serial.println("Resetting_TTEMP");
+    }
   }
+
   uint8_t switchState4 = digitalRead(touch4_pin);
   if (switchState4 == 1) {
-    client.publish(top_tch_4, "high");
-    Serial.println("Touch-4 HIGH");
+    if(ttemp4 == 0){
+      client.publish(top_tch_4, "high");
+      Serial.println("Touch-4 HIGH");
+      ttemp4 = 1;
+    }
+    else{
+      ttemp4 = 0;
+      Serial.println("Resetting_TTEMP");
+    }
   }
-  delay(100);
+  delay(300);
   Serial.println("Tick..........!");
 }

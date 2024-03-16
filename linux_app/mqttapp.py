@@ -10,7 +10,7 @@
 import paho.mqtt.client as mqtt
 import datetime
 # MQTT Broker
-mqttBroker = "192.168.0.101"
+mqttBroker = "10.42.0.1"
 mqttPort = 1883
 mqttClientID = "RPiClient1"
 
@@ -29,6 +29,11 @@ top_b1t2 = "prism/board1/touch2"
 top_b1t3 = "prism/board1/touch3"  
 top_b1t4 = "prism/board1/touch4" 
 counter  = 0
+ttemp1= 0
+ttemp2= 0
+ttemp3= 0
+ttemp4= 0
+
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
     client.subscribe(top_b1t1)
@@ -47,43 +52,60 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     global counter
+    global ttemp1
+    global ttemp2
+    global ttemp3
+    global ttemp4
     counter = counter + 1
     if msg.topic == top_b1t1:
         if msg.payload == b'high':
-            print("Switch-1 OFF")
-        else:
-            print("Switch-1 ON")
+            print("Touch-1 ACTIVE")
+            if(ttemp1 ==0):
+                client.publish(top_b1s1, 'on')
+                print("Socket 1 Turned ON")
+                ttemp1 =1
+            else:
+                client.publish(top_b1s1, 'off')
+                print("Socket 1 Turned OFF")
+                ttemp1 =0
     if msg.topic == top_b1t2:
         if msg.payload == b'high':
-            print("Switch-2 OFF")
-        else:
-            print("Switch-2 ON")
+            print("Touch-2 ACTIVE")
+            if(ttemp2 ==0):
+                client.publish(top_b1s2, 'on')
+                print("Socket 2 Turned ON")
+                ttemp2 =1
+            else:
+                client.publish(top_b1s2, 'off')
+                print("Socket 2 Turned OFF")
+                ttemp2 =0
     if msg.topic == top_b1t3:
         if msg.payload == b'high':
-            print("Switch-3 OFF")
-        else:
-            print("Switch-3 ON")
+            print("Touch-3 ACTIVE")
+            if(ttemp3 ==0):
+                client.publish(top_b1s3, 'on')
+                print("Socket 3 Turned ON")
+                ttemp3 =1
+            else:
+                client.publish(top_b1s3, 'off')
+                print("Socket 3 Turned OFF")
+                ttemp3 =0
     if msg.topic == top_b1t4:
         if msg.payload == b'high':
-            print("Switch-4 OFF")
-        else:
-            print("Switch-4 ON")
-
-    if msg.topic == top_sb1s1:
-        print("Temperature : "+str(msg.payload))
-    if msg.topic == top_sb1s2:
-        print("Humidity : "+str(msg.payload))
-    if msg.topic == top_sb1s3:
-        print("Light Intensity : "+str(msg.payload))
-    if counter == 6:
+            print("Touch-4 ACTIVE")
+            if(ttemp4 ==0):
+                client.publish(top_b1s4, 'on')
+                print("Socket 4 Turned ON")
+                ttemp4 =1
+            else:
+                client.publish(top_b1s4, 'off')
+                print("Socket 4 Turned OFF")
+                ttemp4 =0
+    if counter == 4:
         now = datetime.datetime.now()
         print("Date and Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
         counter = 0
         
-    
-
-    
-
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, mqttClientID)    # using V1 because V2 breaks the plugin
 client.on_connect = on_connect
 client.on_message = on_message

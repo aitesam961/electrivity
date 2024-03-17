@@ -19,15 +19,15 @@ top_sb1s1 = "prism/sboard1/sensor1"
 top_sb1s2 = "prism/sboard1/sensor2"  
 top_sb1s3 = "prism/sboard1/sensor3"  
 
-top_b1s1 = "prism/board2/switch1"  
-top_b1s2 = "prism/board2/switch2"  
-top_b1s3 = "prism/board2/switch3"  
-top_b1s4 = "prism/board2/switch4" 
+top_b1s1 = "prism/board3/switch1"  
+top_b1s2 = "prism/board3/switch2"  
+top_b1s3 = "prism/board3/switch3"  
+top_b1s4 = "prism/board3/switch4" 
 
-top_b1t1 = "prism/board2/touch1"  
-top_b1t2 = "prism/board2/touch2"  
-top_b1t3 = "prism/board2/touch3"  
-top_b1t4 = "prism/board2/touch4" 
+top_b1t1 = "prism/board3/touch1"  
+top_b1t2 = "prism/board3/touch2"  
+top_b1t3 = "prism/board3/touch3"  
+top_b1t4 = "prism/board3/touch4" 
 counter  = 0
 ttemp1= 0
 ttemp2= 0

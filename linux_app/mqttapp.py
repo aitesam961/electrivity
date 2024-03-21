@@ -122,7 +122,8 @@ def on_connect(client, userdata, flags, rc):
 
 
 def on_message(client, userdata, msg):
-
+    now = datetime.datetime.now()
+    print("Date and Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
     # ------------------------------- B1
     global b1ttemp1
     global b1ttemp2
@@ -130,47 +131,47 @@ def on_message(client, userdata, msg):
     global b1ttemp4
     if msg.topic == top_b1t1:
         if msg.payload == b'high':
-            print("Touch-1 ACTIVE")
+            print("BEDROOM Touch-1 ACTIVE")
             if(b1ttemp1 ==0):
                 client.publish(top_b1s1, 'on')
-                print("Socket 1 Turned ON")
+                print("BEDROOM LIGHT 1 Turned ON")
                 b1ttemp1 =1
             else:
                 client.publish(top_b1s1, 'off')
-                print("Socket 1 Turned OFF")
+                print("BEDROOM LIGHT 1 Turned OFF")
                 b1ttemp1 =0
     if msg.topic == top_b1t2:
         if msg.payload == b'high':
-            print("Touch-2 ACTIVE")
+            print("BEDROOM Touch-2 ACTIVE")
             if(b1ttemp2 ==0):
                 client.publish(top_b1s2, 'on')
-                print("Socket 2 Turned ON")
+                print("BEDROOM LIGHT 2 Turned ON")
                 b1ttemp2 =1
             else:
                 client.publish(top_b1s2, 'off')
-                print("Socket 2 Turned OFF")
+                print("BEDROOM LIGHT 2 Turned OFF")
                 b1ttemp2 =0
     if msg.topic == top_b1t3:
         if msg.payload == b'high':
-            print("Touch-3 ACTIVE")
+            print("BEDROOM Touch-3 ACTIVE")
             if(b1ttemp3 ==0):
                 client.publish(top_b1s3, 'on')
-                print("Socket 3 Turned ON")
+                print("BEDROOM LIGHT 3 Turned ON")
                 b1ttemp3 =1
             else:
                 client.publish(top_b1s3, 'off')
-                print("Socket 3 Turned OFF")
+                print("BEDROOM LIGHT 3 Turned OFF")
                 b1ttemp3 =0
     if msg.topic == top_b1t4:
         if msg.payload == b'high':
-            print("Touch-4 ACTIVE")
+            print("BEDROOM Touch-4 ACTIVE")
             if(b1ttemp4 ==0):
                 client.publish(top_b1s4, 'on')
-                print("Socket 4 Turned ON")
+                print("BEDROOM LIGHT 4 Turned ON")
                 b1ttemp4 =1
             else:
                 client.publish(top_b1s4, 'off')
-                print("Socket 4 Turned OFF")
+                print("BEDROOM LIGHT 4 Turned OFF")
                 b1ttemp4 =0
     
     # ------------------------------- B2
@@ -179,49 +180,49 @@ def on_message(client, userdata, msg):
     global b2ttemp2
     global b2ttemp3
     global b2ttemp4
-    if msg.topic == top_b1t1:
+    if msg.topic == top_b2t1:
         if msg.payload == b'high':
-            print("Touch-1 ACTIVE")
+            print("KITECHEN Touch-1 ACTIVE")
             if(b2ttemp1 ==0):
-                client.publish(top_b1s1, 'on')
-                print("Socket 1 Turned ON")
+                client.publish(top_b2s1, 'on')
+                print("KITECHEN LIGHT 1 Turned ON")
                 b2ttemp1 =1
             else:
-                client.publish(top_b1s1, 'off')
-                print("Socket 1 Turned OFF")
+                client.publish(top_b2s1, 'off')
+                print("KITECHEN LIGHT 1 Turned OFF")
                 b2ttemp1 =0
-    if msg.topic == top_b1t2:
+    if msg.topic == top_b2t2:
         if msg.payload == b'high':
-            print("Touch-2 ACTIVE")
+            print("KITECHEN Touch-2 ACTIVE")
             if(b2ttemp2 ==0):
-                client.publish(top_b1s2, 'on')
-                print("Socket 2 Turned ON")
+                client.publish(top_b2s2, 'on')
+                print("KITECHEN LIGHT 2 Turned ON")
                 b2ttemp2 =1
             else:
-                client.publish(top_b1s2, 'off')
-                print("Socket 2 Turned OFF")
+                client.publish(top_b2s2, 'off')
+                print("KITECHEN LIGHT 2 Turned OFF")
                 b2ttemp2 =0
-    if msg.topic == top_b1t3:
+    if msg.topic == top_b2t3:
         if msg.payload == b'high':
-            print("Touch-3 ACTIVE")
+            print("KITECHEN Touch-3 ACTIVE")
             if(b2ttemp3 ==0):
-                client.publish(top_b1s3, 'on')
-                print("Socket 3 Turned ON")
+                client.publish(top_b2s3, 'on')
+                print("KITECHEN LIGHT 3 Turned ON")
                 b2ttemp3 =1
             else:
-                client.publish(top_b1s3, 'off')
-                print("Socket 3 Turned OFF")
+                client.publish(top_b2s3, 'off')
+                print("KITECHEN LIGHT 3 Turned OFF")
                 b2ttemp3 =0
-    if msg.topic == top_b1t4:
+    if msg.topic == top_b2t4:
         if msg.payload == b'high':
-            print("Touch-4 ACTIVE")
+            print("KITECHEN Touch-4 ACTIVE")
             if(b2ttemp4 ==0):
-                client.publish(top_b1s4, 'on')
-                print("Socket 4 Turned ON")
+                client.publish(top_b2s4, 'on')
+                print("KITECHEN LIGHT 4 Turned ON")
                 b2ttemp4 =1
             else:
-                client.publish(top_b1s4, 'off')
-                print("Socket 4 Turned OFF")
+                client.publish(top_b2s4, 'off')
+                print("KITECHEN LIGHT 4 Turned OFF")
                 b2ttemp4 =0
 
     # ------------------------------- B3
@@ -230,102 +231,101 @@ def on_message(client, userdata, msg):
     global b3ttemp2
     global b3ttemp3
     global b3ttemp4
-    if msg.topic == top_b1t1:
+    if msg.topic == top_b3t1:
         if msg.payload == b'high':
-            print("Touch-1 ACTIVE")
+            print("GARAGE Touch-1 ACTIVE")
             if(b3ttemp1 ==0):
-                client.publish(top_b1s1, 'on')
-                print("Socket 1 Turned ON")
+                client.publish(top_b3s1, 'on')
+                print("GARAGE LIGHT 1 Turned ON")
                 b3ttemp1 =1
             else:
-                client.publish(top_b1s1, 'off')
-                print("Socket 1 Turned OFF")
+                client.publish(top_b3s1, 'off')
+                print("GARAGE LIGHT  1 Turned OFF")
                 b3ttemp1 =0
-    if msg.topic == top_b1t2:
+    if msg.topic == top_b3t2:
         if msg.payload == b'high':
-            print("Touch-2 ACTIVE")
+            print("GARAGE Touch-2 ACTIVE")
             if(b3ttemp2 ==0):
-                client.publish(top_b1s2, 'on')
-                print("Socket 2 Turned ON")
+                client.publish(top_b3s2, 'on')
+                print("GARAGE LIGHT  2 Turned ON")
                 b3ttemp2 =1
             else:
-                client.publish(top_b1s2, 'off')
-                print("Socket 2 Turned OFF")
+                client.publish(top_b3s2, 'off')
+                print("GARAGE LIGHT  2 Turned OFF")
                 b3ttemp2 =0
-    if msg.topic == top_b1t3:
+    if msg.topic == top_b3t3:
         if msg.payload == b'high':
-            print("Touch-3 ACTIVE")
+            print("GARAGE Touch-3 ACTIVE")
             if(b3ttemp3 ==0):
-                client.publish(top_b1s3, 'on')
-                print("Socket 3 Turned ON")
+                client.publish(top_b3s3, 'on')
+                print("GARAGE LIGHT  3 Turned ON")
                 b3ttemp3 =1
             else:
-                client.publish(top_b1s3, 'off')
-                print("Socket 3 Turned OFF")
+                client.publish(top_b3s3, 'off')
+                print("GARAGE LIGHT  3 Turned OFF")
                 b3ttemp3 =0
-    if msg.topic == top_b1t4:
+    if msg.topic == top_b3t4:
         if msg.payload == b'high':
-            print("Touch-4 ACTIVE")
+            print("GARAGE Touch-4 ACTIVE")
             if(b3ttemp4 ==0):
-                client.publish(top_b1s4, 'on')
-                print("Socket 4 Turned ON")
+                client.publish(top_b3s4, 'on')
+                print("GARAGE LIGHT  4 Turned ON")
                 b3ttemp4 =1
             else:
-                client.publish(top_b1s4, 'off')
-                print("Socket 4 Turned OFF")
+                client.publish(top_b3s4, 'off')
+                print("GARAGE LIGHT  4 Turned OFF")
                 b3ttemp4 =0
     
     # ------------------------------- B4
 
-    global b4ttemp1
-    global b4ttemp2
-    global b4ttemp3
-    global b4ttemp4
-    if msg.topic == top_b1t1:
-        if msg.payload == b'high':
-            print("Touch-1 ACTIVE")
-            if(b4ttemp1 ==0):
-                client.publish(top_b1s1, 'on')
-                print("Socket 1 Turned ON")
-                b4ttemp1 =1
-            else:
-                client.publish(top_b1s1, 'off')
-                print("Socket 1 Turned OFF")
-                b4ttemp1 =0
-    if msg.topic == top_b1t2:
-        if msg.payload == b'high':
-            print("Touch-2 ACTIVE")
-            if(b4ttemp2 ==0):
-                client.publish(top_b1s2, 'on')
-                print("Socket 2 Turned ON")
-                b4ttemp2 =1
-            else:
-                client.publish(top_b1s2, 'off')
-                print("Socket 2 Turned OFF")
-                b4ttemp2 =0
-    if msg.topic == top_b1t3:
-        if msg.payload == b'high':
-            print("Touch-3 ACTIVE")
-            if(b4ttemp3 ==0):
-                client.publish(top_b1s3, 'on')
-                print("Socket 3 Turned ON")
-                b4ttemp3 =1
-            else:
-                client.publish(top_b1s3, 'off')
-                print("Socket 3 Turned OFF")
-                b4ttemp3 =0
-    if msg.topic == top_b1t4:
-        if msg.payload == b'high':
-            print("Touch-4 ACTIVE")
-            if(b4ttemp4 ==0):
-                client.publish(top_b1s4, 'on')
-                print("Socket 4 Turned ON")
-                b4ttemp4 =1
-            else:
-                client.publish(top_b1s4, 'off')
-                print("Socket 4 Turned OFF")
-                b4ttemp4 =0
-
+    # global b4ttemp1
+    # global b4ttemp2
+    # global b4ttemp3
+    # global b4ttemp4
+    # if msg.topic == top_b1t1:
+    #     if msg.payload == b'high':
+    #         print("Touch-1 ACTIVE")
+    #         if(b4ttemp1 ==0):
+    #             client.publish(top_b1s1, 'on')
+    #             print("Socket 1 Turned ON")
+    #             b4ttemp1 =1
+    #         else:
+    #             client.publish(top_b1s1, 'off')
+    #             print("Socket 1 Turned OFF")
+    #             b4ttemp1 =0
+    # if msg.topic == top_b1t2:
+    #     if msg.payload == b'high':
+    #         print("Touch-2 ACTIVE")
+    #         if(b4ttemp2 ==0):
+    #             client.publish(top_b1s2, 'on')
+    #             print("Socket 2 Turned ON")
+    #             b4ttemp2 =1
+    #         else:
+    #             client.publish(top_b1s2, 'off')
+    #             print("Socket 2 Turned OFF")
+    #             b4ttemp2 =0
+    # if msg.topic == top_b1t3:
+    #     if msg.payload == b'high':
+    #         print("Touch-3 ACTIVE")
+    #         if(b4ttemp3 ==0):
+    #             client.publish(top_b1s3, 'on')
+    #             print("Socket 3 Turned ON")
+    #             b4ttemp3 =1
+    #         else:
+    #             client.publish(top_b1s3, 'off')
+    #             print("Socket 3 Turned OFF")
+    #             b4ttemp3 =0
+    # if msg.topic == top_b1t4:
+    #     if msg.payload == b'high':
+    #         print("Touch-4 ACTIVE")
+    #         if(b4ttemp4 ==0):
+    #             client.publish(top_b1s4, 'on')
+    #             print("Socket 4 Turned ON")
+    #             b4ttemp4 =1
+    #         else:
+    #             client.publish(top_b1s4, 'off')
+    #             print("Socket 4 Turned OFF")
+    #             b4ttemp4 =0
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, mqttClientID)    # using V1 because V2 breaks the plugin
 client.on_connect = on_connect

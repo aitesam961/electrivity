@@ -19,15 +19,15 @@ const char* mqttServer      = "10.42.0.1";
 const int mqttPort          = 1883;
 const char* mqttClientID    = "ESP32_ROOM_3";
 
-const char* top_swh_1 = "prism/board2/switch1";
-const char* top_swh_2 = "prism/board2/switch2";
-const char* top_swh_3 = "prism/board2/switch3";
-const char* top_swh_4 = "prism/board2/switch4";
+const char* top_swh_1 = "prism/board3/switch1";
+const char* top_swh_2 = "prism/board3/switch2";
+const char* top_swh_3 = "prism/board3/switch3";
+const char* top_swh_4 = "prism/board3/switch4";
 
-const char* top_tch_1 = "prism/board2/touch1";
-const char* top_tch_2 = "prism/board2/touch2";
-const char* top_tch_3 = "prism/board2/touch3";
-const char* top_tch_4 = "prism/board2/touch4";
+const char* top_tch_1 = "prism/board3/touch1";
+const char* top_tch_2 = "prism/board3/touch2";
+const char* top_tch_3 = "prism/board3/touch3";
+const char* top_tch_4 = "prism/board3/touch4";
 
 const int switch1_pin     = 15;
 const int switch2_pin     = 4;
@@ -38,9 +38,8 @@ const int touch1_pin      = 23;
 const int touch2_pin      = 19;
 const int touch3_pin      = 21;
 const int touch4_pin      = 22;
- 
-const int led_pin         = 2 ;  
 
+const int led_pin         = 2 ;  
 
 uint8_t ttemp1 = 0;
 uint8_t ttemp2 = 0;

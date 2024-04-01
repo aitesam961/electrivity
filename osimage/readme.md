@@ -15,6 +15,6 @@ $ sudo raspi-config params
 - username: rpi
 - password: rpirpi
 - Wireless Interface
- (aitesam's home network)
+ (aitesam's home network) or can be configured
  
  

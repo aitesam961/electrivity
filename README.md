@@ -108,7 +108,6 @@ v1: version
 │   │   │   └── README
 │   │   ├── platformio.ini
 │   │   ├── src
-│   │   │   ├── electrivity.code-workspace
 │   │   │   └── main.cpp
 │   │   └── test
 │   │       └── README
@@ -133,6 +132,15 @@ v1: version
 │   │       ├── Power_Board_asm.stl
 │   │       ├── proto_7x5.stl
 │   │       └── proto_7x5.stp
+│   ├── EVTY_XP1_SBcase_v1p0
+│   │   ├── CAM_Data
+│   │   │   ├── EVTY_bracket_custom_v1p0-Prim Shell.step
+│   │   │   ├── EVTY_bracket_custom_v1p0-Prim Shell.stl
+│   │   │   ├── EVTY_bracket_custom_v1p0-Side Face.step
+│   │   │   └── EVTY_bracket_custom_v1p0-Side Face.stl
+│   │   └── src_freecad
+│   │       ├── EVTY_bracket_custom_v1p0.FCStd
+│   │       └── EVTY_bracket_custom_v1p0.FCStd1
 │   ├── physical_addresses.md
 │   ├── readme.md
 │   └── schem
@@ -150,6 +158,8 @@ v1: version
     ├── mqtt-v5.0-os.pdf
     └── TTP223.pdf
 
-27 directories, 77 files
+30 directories, 82 files
+
+
 
 ```

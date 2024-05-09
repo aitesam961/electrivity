@@ -11,8 +11,10 @@
 */
 #include<Arduino.h>
 #include <WiFi.h>
+#include "EmonLib.h"  
 #include <PubSubClient.h>
 
+#define  mains_voltage 220;
 
 const char* ssid            = "secureLAN";
 const char* password        = "secureLAN";
@@ -30,26 +32,66 @@ const char* top_tch_2 = "prism/board4/touch2";
 const char* top_tch_3 = "prism/board4/touch3";
 const char* top_tch_4 = "prism/board4/touch4";
 
+const char* top_pch_1 = "prism/board4/pwrch1";
+const char* top_pch_2 = "prism/board4/pwrch2";
+const char* top_pch_3 = "prism/board4/pwrch3";
+const char* top_pch_4 = "prism/board4/pwrch4";
+
+
 const int switch1_pin     = 15;
 const int switch2_pin     = 4;
 const int switch3_pin     = 16;
 const int switch4_pin     = 17;
  
-const int touch1_pin      = 23;
-const int touch2_pin      = 19;
-const int touch3_pin      = 21;
-const int touch4_pin      = 22;
+const int touch1_pin      = 19;
+const int touch2_pin      = 21;
+const int touch3_pin      = 22;
+const int touch4_pin      = 23;
  
 const int led_pin         = 2 ;  
 
+const int cts1_pin        = 33;
+const int cts2_pin        = 32;
+const int cts3_pin        = 35;
+const int cts4_pin        = 34;
+
+const int num_i_read      = 4;
 
 uint8_t ttemp1 = 0;
 uint8_t ttemp2 = 0;
 uint8_t ttemp3 = 0;
 uint8_t ttemp4 = 0;
 
+double    Irms1 = 0;
+double    Irms2 = 0;
+double    Irms3 = 0;
+double    Irms4 = 0;
+
+u_int16_t powerch1, powerinitch1 = 0;
+u_int16_t powerch2, powerinitch2 = 0;
+u_int16_t powerch3, powerinitch3 = 0;
+u_int16_t powerch4, powerinitch4 = 0;
+
+char pch1[16];
+char pch2[16];
+char pch3[16];
+char pch4[16];
+
+uint16_t ct_iter_trace  = 0;
+
+int avgfifo1[num_i_read] = {0};
+int avgfifo2[num_i_read] = {0};
+int avgfifo3[num_i_read] = {0};
+int avgfifo4[num_i_read] = {0};
+
+
 WiFiClient espClient;
 PubSubClient client(espClient);
+
+EnergyMonitor emon1;
+EnergyMonitor emon2; 
+EnergyMonitor emon3;  
+EnergyMonitor emon4; 
 
 void callback(char* topic, byte* payload, unsigned int length) {
   String message = "";
@@ -133,6 +175,11 @@ void setup() {
   pinMode(switch3_pin, OUTPUT);
   pinMode(switch4_pin, OUTPUT);
 
+  emon1.current(cts1_pin, 32.59);  
+  emon2.current(cts2_pin, 32.59); 
+  emon3.current(cts3_pin, 32.59); 
+  emon4.current(cts4_pin, 32.59); 
+
   digitalWrite(switch1_pin, HIGH);
   digitalWrite(switch2_pin, HIGH);
   digitalWrite(switch3_pin, HIGH);
@@ -212,6 +259,55 @@ void loop() {
     ttemp4 = 0;
     Serial.println("Resetting_TTEMP");
   }
-  delay(300);
+
+  Irms1 = emon1.calcIrms(1480);
+  Irms2 = emon2.calcIrms(1480);
+  Irms3 = emon3.calcIrms(1480);
+  Irms4 = emon4.calcIrms(1480);
+
+  powerch1  = (Irms1/100)*mains_voltage;
+  powerch2  = (Irms2/100)*mains_voltage;
+  powerch3  = (Irms3/100)*mains_voltage;
+  powerch4  = (Irms4/100)*mains_voltage;
+
+if(ct_iter_trace < num_i_read){
+  avgfifo1[ct_iter_trace] = powerch1;
+  avgfifo2[ct_iter_trace] = powerch2;
+  avgfifo3[ct_iter_trace] = powerch3;
+  avgfifo4[ct_iter_trace] = powerch4;
+
+  ct_iter_trace +=  1;
+}
+else{
+  ct_iter_trace = 0;
+
+  powerinitch1  = ((avgfifo1[0]+avgfifo1[1]+avgfifo1[2]+avgfifo1[3])/4);
+  powerinitch2  = ((avgfifo2[0]+avgfifo2[1]+avgfifo2[2]+avgfifo2[3])/4);
+  powerinitch3  = ((avgfifo3[0]+avgfifo3[1]+avgfifo3[2]+avgfifo3[3])/4);
+  powerinitch4  = ((avgfifo4[0]+avgfifo4[1]+avgfifo4[2]+avgfifo4[3])/4);
+
+  powerinitch1  = powerinitch1 < 5 ? 0 : powerinitch1;
+  powerinitch2  = powerinitch2 < 5 ? 0 : powerinitch2;
+  powerinitch3  = powerinitch3 < 5 ? 0 : powerinitch3;
+  powerinitch4  = powerinitch4 < 5 ? 0 : powerinitch4;
+
+  // data type conversion for transfer
+  snprintf(pch1, sizeof(pch1), "%u", powerinitch1);
+  snprintf(pch2, sizeof(pch2), "%u", powerinitch2);
+  snprintf(pch3, sizeof(pch3), "%u", powerinitch3);
+  snprintf(pch4, sizeof(pch4), "%u", powerinitch4);
+
+  Serial.print("Power Consumption, Channel 1  : "); Serial.println(pch1);
+  Serial.print("Power Consumption, Channel 2  : "); Serial.println(pch2);
+  Serial.print("Power Consumption, Channel 3  : "); Serial.println(pch3);
+  Serial.print("Power Consumption, Channel 4  : "); Serial.println(pch4);
+
+  client.publish(top_pch_1, pch1);
+  client.publish(top_pch_2, pch2);
+  client.publish(top_pch_3, pch3);
+  client.publish(top_pch_4, pch4);
+}
+
+  delay(100);
   Serial.println("Tick..........!");
 }

@@ -20,22 +20,22 @@ const char* ssid            = "secureLAN";
 const char* password        = "secureLAN";
 const char* mqttServer      = "10.42.0.1";
 const int mqttPort          = 1883;
-const char* mqttClientID    = "ESP32_ROOM_2";
+const char* mqttClientID    = "ESP32_ROOM_1";
 
-const char* top_swh_1 = "prism/board2/switch1";
-const char* top_swh_2 = "prism/board2/switch2";
-const char* top_swh_3 = "prism/board2/switch3";
-const char* top_swh_4 = "prism/board2/switch4";
+const char* top_swh_1 = "prism/board1/switch1";
+const char* top_swh_2 = "prism/board1/switch2";
+const char* top_swh_3 = "prism/board1/switch3";
+const char* top_swh_4 = "prism/board1/switch4";
 
-const char* top_tch_1 = "prism/board2/touch1";
-const char* top_tch_2 = "prism/board2/touch2";
-const char* top_tch_3 = "prism/board2/touch3";
-const char* top_tch_4 = "prism/board2/touch4";
+const char* top_tch_1 = "prism/board1/touch1";
+const char* top_tch_2 = "prism/board1/touch2";
+const char* top_tch_3 = "prism/board1/touch3";
+const char* top_tch_4 = "prism/board1/touch4";
 
-const char* top_pch_1 = "prism/board2/pwrch1";
-const char* top_pch_2 = "prism/board2/pwrch2";
-const char* top_pch_3 = "prism/board2/pwrch3";
-const char* top_pch_4 = "prism/board2/pwrch4";
+const char* top_pch_1 = "prism/board1/pwrch1";
+const char* top_pch_2 = "prism/board1/pwrch2";
+const char* top_pch_3 = "prism/board1/pwrch3";
+const char* top_pch_4 = "prism/board1/pwrch4";
 
 
 const int switch1_pin     = 15;

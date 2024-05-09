@@ -57,6 +57,27 @@ top_b4t2 = "prism/board4/touch2"
 top_b4t3 = "prism/board4/touch3"  
 top_b4t4 = "prism/board4/touch4" 
 
+b1_pch_1 = "prism/board1/pwrch1"
+b1_pch_2 = "prism/board1/pwrch2"
+b1_pch_3 = "prism/board1/pwrch3"
+b1_pch_4 = "prism/board1/pwrch4"
+
+b2_pch_1 = "prism/board2/pwrch1"
+b2_pch_2 = "prism/board2/pwrch2"
+b2_pch_3 = "prism/board2/pwrch3"
+b2_pch_4 = "prism/board2/pwrch4"
+
+b3_pch_1 = "prism/board3/pwrch1"
+b3_pch_2 = "prism/board3/pwrch2"
+b3_pch_3 = "prism/board3/pwrch3"
+b3_pch_4 = "prism/board3/pwrch4"
+
+b4_pch_1 = "prism/board4/pwrch1"
+b4_pch_2 = "prism/board4/pwrch2"
+b4_pch_3 = "prism/board4/pwrch3"
+b4_pch_4 = "prism/board4/pwrch4"
+
+
 b1ttemp1= 0
 b1ttemp2= 0
 b1ttemp3= 0
@@ -98,6 +119,26 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe(top_b4t2)
     client.subscribe(top_b4t3)
     client.subscribe(top_b4t4)
+
+    client.subscribe(b1_pch_1)
+    client.subscribe(b1_pch_2)
+    client.subscribe(b1_pch_3)
+    client.subscribe(b1_pch_4)
+
+    client.subscribe(b2_pch_1)
+    client.subscribe(b2_pch_2)
+    client.subscribe(b2_pch_3)
+    client.subscribe(b2_pch_4)
+
+    client.subscribe(b3_pch_1)
+    client.subscribe(b3_pch_2)
+    client.subscribe(b3_pch_3)
+    client.subscribe(b3_pch_4)
+
+    client.subscribe(b4_pch_1)
+    client.subscribe(b4_pch_2)
+    client.subscribe(b4_pch_3)
+    client.subscribe(b4_pch_4)
 
     client.publish(top_b1s1, "off")
     client.publish(top_b1s2, "off")
@@ -173,6 +214,7 @@ def on_message(client, userdata, msg):
                 client.publish(top_b1s4, 'off')
                 print("BEDROOM LIGHT 4 Turned OFF")
                 b1ttemp4 =0
+
     
     # ------------------------------- B2
 
@@ -278,54 +320,93 @@ def on_message(client, userdata, msg):
     
     # ------------------------------- B4
 
-    # global b4ttemp1
-    # global b4ttemp2
-    # global b4ttemp3
-    # global b4ttemp4
-    # if msg.topic == top_b1t1:
-    #     if msg.payload == b'high':
-    #         print("Touch-1 ACTIVE")
-    #         if(b4ttemp1 ==0):
-    #             client.publish(top_b1s1, 'on')
-    #             print("Socket 1 Turned ON")
-    #             b4ttemp1 =1
-    #         else:
-    #             client.publish(top_b1s1, 'off')
-    #             print("Socket 1 Turned OFF")
-    #             b4ttemp1 =0
-    # if msg.topic == top_b1t2:
-    #     if msg.payload == b'high':
-    #         print("Touch-2 ACTIVE")
-    #         if(b4ttemp2 ==0):
-    #             client.publish(top_b1s2, 'on')
-    #             print("Socket 2 Turned ON")
-    #             b4ttemp2 =1
-    #         else:
-    #             client.publish(top_b1s2, 'off')
-    #             print("Socket 2 Turned OFF")
-    #             b4ttemp2 =0
-    # if msg.topic == top_b1t3:
-    #     if msg.payload == b'high':
-    #         print("Touch-3 ACTIVE")
-    #         if(b4ttemp3 ==0):
-    #             client.publish(top_b1s3, 'on')
-    #             print("Socket 3 Turned ON")
-    #             b4ttemp3 =1
-    #         else:
-    #             client.publish(top_b1s3, 'off')
-    #             print("Socket 3 Turned OFF")
-    #             b4ttemp3 =0
-    # if msg.topic == top_b1t4:
-    #     if msg.payload == b'high':
-    #         print("Touch-4 ACTIVE")
-    #         if(b4ttemp4 ==0):
-    #             client.publish(top_b1s4, 'on')
-    #             print("Socket 4 Turned ON")
-    #             b4ttemp4 =1
-    #         else:
-    #             client.publish(top_b1s4, 'off')
-    #             print("Socket 4 Turned OFF")
-    #             b4ttemp4 =0
+    global b4ttemp1
+    global b4ttemp2
+    global b4ttemp3
+    global b4ttemp4
+    if msg.topic == top_b4t1:
+        if msg.payload == b'high':
+            print("OUTDOORS Touch-1 ACTIVE")
+            if(b4ttemp1 ==0):
+                client.publish(top_b4s1, 'on')
+                print("OUTDOORS LIGHT 1 Turned ON")
+                b4ttemp1 =1
+            else:
+                client.publish(top_b4s1, 'off')
+                print("OUTDOORS LIGHT  1 Turned OFF")
+                b4ttemp1 =0
+    if msg.topic == top_b4t2:
+        if msg.payload == b'high':
+            print("OUTDOORS Touch-2 ACTIVE")
+            if(b4ttemp2 ==0):
+                client.publish(top_b4s2, 'on')
+                print("OUTDOORS LIGHT  2 Turned ON")
+                b4ttemp2 =1
+            else:
+                client.publish(top_b4s2, 'off')
+                print("OUTDOORS LIGHT  2 Turned OFF")
+                b4ttemp2 =0
+    if msg.topic == top_b4t3:
+        if msg.payload == b'high':
+            print("OUTDOORS Touch-3 ACTIVE")
+            if(b4ttemp3 ==0):
+                client.publish(top_b4s3, 'on')
+                print("OUTDOORS LIGHT  3 Turned ON")
+                b4ttemp3 =1
+            else:
+                client.publish(top_b4s3, 'off')
+                print("OUTDOORS LIGHT  3 Turned OFF")
+                b4ttemp3 =0
+    if msg.topic == top_b4t4:
+        if msg.payload == b'high':
+            print("OUTDOORS Touch-4 ACTIVE")
+            if(b4ttemp4 ==0):
+                client.publish(top_b4s4, 'on')
+                print("OUTDOORS LIGHT  4 Turned ON")
+                b4ttemp4 =1
+            else:
+                client.publish(top_b4s4, 'off')
+                print("OUTDOORS LIGHT  4 Turned OFF")
+                b4ttemp4 =0
+
+    # ------------------------------- Power Channel Readings
+
+    if msg.topic == b1_pch_1:
+        print("ROOM 1 Power CH1 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b1_pch_2:
+        print("ROOM 1 Power CH2 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b1_pch_3:
+        print("ROOM 1 Power CH3 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b1_pch_4:
+        print("ROOM 1 Power CH4 : " , msg.payload.decode("utf-8"))
+
+    if msg.topic == b2_pch_1:
+        print("ROOM 2 Power CH1 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b2_pch_2:
+        print("ROOM 2 Power CH2 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b2_pch_3:
+        print("ROOM 2 Power CH3 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b2_pch_4:
+        print("ROOM 2 Power CH4 : " , msg.payload.decode("utf-8"))
+
+
+    if msg.topic == b3_pch_1:
+        print("ROOM 3 Power CH1 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b3_pch_2:
+        print("ROOM 3 Power CH2 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b3_pch_3:
+        print("ROOM 3 Power CH3 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b3_pch_4:
+        print("ROOM 3 Power CH4 : " , msg.payload.decode("utf-8"))
+
+    if msg.topic == b4_pch_1:
+        print("ROOM 4 Power CH1 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b4_pch_2:
+        print("ROOM 4 Power CH2 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b4_pch_3:
+        print("ROOM 4 Power CH3 : " , msg.payload.decode("utf-8"))
+    if msg.topic == b4_pch_4:
+        print("ROOM 4 Power CH4 : " , msg.payload.decode("utf-8"))
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, mqttClientID)    # using V1 because V2 breaks the plugin
 client.on_connect = on_connect

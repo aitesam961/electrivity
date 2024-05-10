@@ -1,0 +1,42 @@
+===== Setting up MQTT Broker and relevant services on Linux PC/Raspberry pi replacement =====
+
+# Install MQTT and MQTT client
+sudo apt install -y mosquitto mosquitto-clients
+# Install MQTT transmitter library
+sudo pip3 install paho-mqtt
+
+# To resolve Python Venv issue
+sudo rm -rf /usr/lib/python3.11/EXTERNALLY-MANAGED
+sudo pip3 install paho-mqtt
+
+sudo nano /etc/mosquitto/mosquitto.conf
+2) Move to the end of the file using the arrow keys and paste the following two lines:
+
+listener 1883
+allow_anonymous true
+
+# Configure Network
+nmcli dev
+sudo nmcli device wifi hotspot ssid secureLAN password secureLAN ifname <replace with your WLAN interface name>
+
+# Connect Wifi USB adapter to home network for internet
+ nmcli device wifi connect LIAMAVENTA password 78900789 ifname wlx502b73c4193b
+ 
+ 
+
+#Enable MQTT Broker
+sudo systemctl enable mosquitto.service
+
+
+###========================
+Do each time
+
+# Configure network if not in bashrc, else skip
+Run MQTT host service
+
+cd ~/Desktop/electrivity-main/linux_app
+sudo python3 mqttapp.py
+
+
+
+

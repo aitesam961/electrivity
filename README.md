@@ -1,165 +1,93 @@
-# ELECTRIVITY: An EDGE IOT SYSTEM
-A wireless IoT system with AI enhanced processing and automation.
+# Electrivity — Edge IoT Home Automation
 
-### List of Hardware Components
-- Check [HARDWARE](hardware/readme.md)
-- Check [MQTT Topics](application/topics_mqtt.md)
+Electrivity is a wireless home automation project combining ESP32 devices, a Raspberry Pi edge host, and MQTT messaging. This repository contains firmware, Linux control scripts, hardware designs, setup notes, and prototype documentation. AI-enhanced processing and automation are part of the project vision.
 
+**Status:** In progress. Some documents describe earlier BLE prototypes; the main firmware and Linux application use MQTT. The `mobile_app/` folder currently contains a device distribution plan.
 
+## Start here
 
-## STATUS
-In Progress.
+| Task | Entry point |
+| --- | --- |
+| Understand the system design | [Architecture blueprint](docs/EVTY_arch_blueprint_v1.pdf) |
+| Review components | [Hardware component list](hardware/readme.md) |
+| Work on ESP32 firmware | [Main source](firmware/EVTY_FW_ARDPIO_v1/src/main.cpp) and [PlatformIO configuration](firmware/EVTY_FW_ARDPIO_v1/platformio.ini) |
+| Work on the Linux controller | [MQTT application](linux_app/mqttapp.py) |
+| Understand device messaging | [MQTT topics](linux_app/topics_mqtt.md) and [room/board distribution](mobile_app/EVTY_distribution_plan_v1.md) |
+| Use the hardware emulator | [Emulator usage guide](HWemulator/Usage_Instructions.md) |
+| Review the Raspberry Pi setup | [OS notes](osimage/readme.md) and [PC setup notes](osimage/setup_new_pc.txt) |
+| Explore the earlier BLE demonstration | [Proof-of-concept walkthrough](docs/poc_demo.md) |
 
-- Hardware and Firmware : @aitesam961
-- Mobile application and Linux Program: @Hassan & @Fawad
+## Repository structure
 
-## File Naming Conventions
+Directories only, limited to two levels (`tree -d -L 2`). Hidden directories are omitted. Each folder's purpose is shown alongside its name.
 
-The project files follows a uniform file naming convention across the repository.
-
-### Design Files: 
-Design files should be placed under respective folders and DE project sources should be named as:
-```
-EVTY_FW_PIO_V1
-EVTY: Electrivity
-FW: Firmware 
-PIO: Development Environment
-V1: Version
-```
-
-The provided FNC follows guidelines provided by [MIT Data Management:
-File Organization documents](https://ocw.mit.edu/courses/res-str-002-data-management-spring-2016/497580bd31c004cc758a2afb0a115aa4_MITRES_STR_002S16_File.pdf)
-### Documents:
-Documents must follow the naming order as the example below
-
-```
-EVTY_pres_sysd_v1.xls
-EVTY: Electrivity
-pres: presentation
-sysd: Descriptor
-v1: version
-.xls: extension
-```
-
-
-### Directory Tree
-
-```
+```text
 .
-├── archive
-│   ├── _apppy
-│   │   ├── blecclient.py
-│   │   ├── blehandshake.py
-│   │   └── bleserial.py
-│   ├── BT_MAC_scan
-│   │   └── BT_MAC_scan.ino
-│   ├── _EIS_fw
-│   │   ├── ESP_Control.cpp
-│   │   ├── ESP_SENSOR.cpp
-│   │   ├── firmware.code-workspace
-│   │   ├── include
-│   │   │   └── README
-│   │   ├── lib
-│   │   │   └── README
-│   │   ├── platformio.ini
-│   │   ├── src
-│   │   │   └── main.cpp
-│   │   └── test
-│   │       └── README
-│   └── ESP32_BTSerial
-│       └── ESP32_BTSerial.ino
-├── docs
-│   ├── EVTY_arch_blueprint_v1.pdf
-│   ├── EVTY_part_list_phase1_v1.pdf
-│   ├── EVTY_part_list_prelim_v1.pdf
-│   ├── EVTY_poc_demo_doc_v1.pdf
-│   ├── EVTY_poc_demo_v1.drawio
-│   ├── EVTY_poc_demo_v1.png
-│   ├── EVTY_pres_phase1_v1.pdf
-│   ├── im1.jpeg
-│   ├── im2.jpeg
-│   ├── im3.jpeg
-│   ├── image_2024-02-22_001135263.png
-│   ├── images
-│   │   ├── image1.jpeg
-│   │   ├── image2.jpeg
-│   │   ├── image3.jpeg
-│   │   ├── image4.jpeg
-│   │   ├── image5.jpeg
-│   │   └── image6.jpeg
-│   ├── poc_demo.md
-│   ├── prism-xp1_swd.drawio
-│   ├── prism-xp1_swd.png
-│   ├── prism-xp1_sysd.drawio
-│   ├── prism-xp1_sysd.jpg
-│   ├── readme.md
-│   └── Report.pdf
-├── firmware
-│   ├── EVTY_FW_ARDPIO_v1
-│   │   ├── debugger_esp.cpp
-│   │   ├── esp32_r2.cpp
-│   │   ├── esp32_r3.cpp
-│   │   ├── esp32_r4.cpp
-│   │   ├── esp32_s1.cpp
-│   │   ├── esp_r1.cpp
-│   │   ├── include
-│   │   │   └── README
-│   │   ├── lib
-│   │   │   └── README
-│   │   ├── platformio.ini
-│   │   ├── src
-│   │   │   └── main.cpp
-│   │   └── test
-│   │       └── README
-│   ├── readme.md
-│   └── test_builds
-│       ├── r1_cRtos.c
-│       └── s1_cRtos.c
-├── hardware
-│   ├── 3dmodel
-│   │   ├── EVTY_stackupmodel_v1.blend
-│   │   ├── EVTY_stackupmodel_v1.blend1
-│   │   └── lib
-│   │       ├── 4 Channel Relay Board.stl
-│   │       ├── 4 Channel Relay Board.stp
-│   │       ├── ESP32-DEVKITC-32D--3DModel-STEP-269445.STEP
-│   │       ├── ESP32-DEVKITC-32D--3DModel-STEP-269445.stl
-│   │       ├── m3-16mm.STEP
-│   │       ├── m3-16mm.stl
-│   │       ├── nut.STEP
-│   │       ├── nut.stl
-│   │       ├── Power_Board_asm.STEP
-│   │       ├── Power_Board_asm.stl
-│   │       ├── proto_7x5.stl
-│   │       └── proto_7x5.stp
-│   ├── EVTY_XP1_SBcase_v1p0
-│   │   ├── CAM_Data
-│   │   │   ├── EVTY_bracket_custom_v1p0-Prim Shell.step
-│   │   │   ├── EVTY_bracket_custom_v1p0-Prim Shell.stl
-│   │   │   ├── EVTY_bracket_custom_v1p0-Side Face.step
-│   │   │   └── EVTY_bracket_custom_v1p0-Side Face.stl
-│   │   └── src_freecad
-│   │       ├── EVTY_bracket_custom_v1p0.FCStd
-│   │       └── EVTY_bracket_custom_v1p0.FCStd1
-│   ├── physical_addresses.md
-│   ├── readme.md
-│   └── schem
-│       └── EVTY_Schematics_brd_v1.0.pdf
-├── linux_app
-│   ├── mqttapp.py
-│   ├── mqtt_switch_control.sh
-│   └── topics_mqtt.md
-├── mobile_app
-│   └── EVTY_distribution_plan_v1.md
-├── osimage
-│   └── readme.md
-├── README.md
-└── reference
-    ├── mqtt-v5.0-os.pdf
-    └── TTP223.pdf
-
-30 directories, 82 files
-
-
-
+├── HWemulator/                   # Hardware emulation scripts and usage instructions
+├── archive/                      # Earlier prototypes and experiments
+│   ├── BT_MAC_scan/              # Bluetooth MAC address scanning sketch
+│   ├── ESP32_BTSerial/            # ESP32 Bluetooth serial experiment
+│   ├── _EIS_fw/                  # Earlier ESP32 firmware project
+│   └── _apppy/                   # Earlier Python BLE clients and handshake scripts
+├── docs/                         # Architecture, reports, presentations, diagrams, and demo notes
+│   └── images/                   # Supporting project images
+├── firmware/                     # ESP32 firmware and experimental builds
+│   ├── EVTY_FW_ARDPIO_v1/         # Arduino/PlatformIO project, main source, and firmware variants
+│   └── test_builds/              # Experimental RTOS source files
+├── hardware/                     # Component list, device addresses, CAD, and electrical designs
+│   ├── 3dmodel/                  # Blender assembly model and component model library
+│   ├── EVTY_XP1_SBcase_v1p0/      # Switchboard enclosure: FreeCAD sources and fabrication exports
+│   └── schem/                    # Electrical schematics in PDF and JSON formats
+├── linux_app/                    # Raspberry Pi/Linux MQTT controller, scripts, and topic reference
+├── mobile_app/                   # Mobile integration planning and room/board topic assignments
+├── osimage/                      # Raspberry Pi OS notes, setup instructions, and command history
+└── reference/                    # External specifications and component datasheets
 ```
+
+## Working in this repository
+
+- **Firmware:** The PlatformIO project targets `esp32doit-devkit-v1` with the Arduino framework. Start with `src/main.cpp` and `platformio.ini`; additional source files in the project root contain variants and debugging code.
+- **Linux application:** Start with `linux_app/mqttapp.py` and the MQTT topic reference. Review the broker address and device/topic assignments when adapting the prototype to your setup.
+- **Hardware:** Keep editable CAD sources with their project and fabrication exports in the project's `CAM_Data/` directory. The assembly model and component library live in `hardware/3dmodel/`.
+- **Documentation:** Keep design explanations and demonstration notes in `docs/`, and third-party specifications in `reference/`. OS setup notes belong in `osimage/`.
+- **Archive:** Use `archive/` for historical context. Put new development in the relevant active component folder.
+
+## Naming conventions
+
+Use descriptive names and keep related source files and exports together. Existing project assets use the following conventions:
+
+**Design projects:** `EVTY_<domain>_<toolchain>_<version>`
+
+Example: `EVTY_FW_ARDPIO_v1`
+
+- `EVTY`: Electrivity
+- `FW`: Firmware
+- `ARDPIO`: Arduino / PlatformIO
+- `v1`: Version 1
+
+**Documents:** `EVTY_<type>_<description>_<version>.<extension>`
+
+Example: `EVTY_pres_phase1_v1.pdf`
+
+- `pres`: Presentation
+- `phase1`: Subject or project phase
+- `v1`: Version 1
+- `.pdf`: File format
+
+Match the surrounding naming convention when adding files. When renaming an existing asset, update its references in the same change.
+
+## Suggested organization improvements
+
+These are proposed follow-up changes; the tree above describes the current layout.
+
+1. **Group documentation by purpose.** Introduce `docs/architecture/`, `docs/demos/`, and `docs/reports/`. Consolidate supporting images under `docs/images/`, replace generic image names with descriptive ones, and update document links together.
+2. **Document each component locally.** Add or expand component READMEs with purpose, dependencies, setup steps, entry points, and known limitations. Prioritize `firmware/`, `linux_app/`, and `HWemulator/`.
+3. **Identify maintained firmware variants.** Explain which board uses each variant and how it is built. Move confirmed retired variants into `archive/` so the intended source is easy to find.
+4. **Standardize folder names gradually.** Consider `hw_emulator/` for `HWemulator/` and `schematics/` for `hardware/schem/`. Check scripts, documentation, and CAD references before moving files.
+5. **Keep temporary files out of future commits.** Add a root `.gitignore` for tool caches and editor/CAD backups. Review already tracked backup files separately; ignore rules do not untrack them.
+6. **Make local setup reproducible.** Record Python dependencies and move configurable network/device settings into documented configuration examples. Separate repeatable setup steps from command history in `osimage/`.
+
+## Contributors
+
+- Hardware and firmware: @aitesam961
+- Mobile application and Linux program: @Hassan and @Fawad
